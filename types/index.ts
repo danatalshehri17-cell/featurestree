@@ -20,6 +20,8 @@ export interface Question {
   correctAnswer: number
   explanation?: string
   difficulty?: 'beginner' | 'intermediate' | 'advanced'
+  audioText?: string // Text to be spoken for listening questions
+  audioUrl?: string // Optional audio file URL
 }
 
 export interface ExamResult {

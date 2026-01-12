@@ -3,49 +3,41 @@
 import Link from 'next/link'
 import { useState } from 'react'
 import { FiMenu, FiX, FiUser, FiLogIn } from 'react-icons/fi'
+import Logo from './Logo'
 
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [isLoggedIn] = useState(false) // This would come from auth context
 
   return (
-    <nav className="bg-white/95 backdrop-blur-md shadow-lg sticky top-0 z-50 border-b border-gray-100">
+    <nav className="bg-white shadow-md sticky top-0 z-50 border-b border-gray-200">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-16">
+        <div className="flex justify-between items-center h-20">
           <div className="flex items-center">
-            <Link href="/" className="flex items-center space-x-2 group">
-              <div className="w-10 h-10 bg-gradient-to-br from-primary-600 to-primary-700 rounded-lg flex items-center justify-center shadow-lg group-hover:shadow-xl group-hover:scale-110 transition-all duration-300">
-                <span className="text-white font-bold text-xl">S</span>
-              </div>
-              <span className="text-xl font-bold text-gray-900 group-hover:text-primary-600 transition-colors">STEP Platform</span>
-            </Link>
+            <Logo size="md" showText={true} />
           </div>
 
           {/* Desktop Menu */}
-          <div className="hidden md:flex items-center space-x-8">
-            <Link href="/" className="text-gray-700 hover:text-primary-600 transition-all duration-300 relative group">
+          <div className="hidden md:flex items-center space-x-1">
+            <Link href="/" className="px-4 py-2 text-gray-700 hover:text-primary-600 hover:bg-primary-50 rounded-lg transition-all duration-200 font-medium">
               Home
-              <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-primary-600 group-hover:w-full transition-all duration-300"></span>
             </Link>
-            <Link href="/pricing" className="text-gray-700 hover:text-primary-600 transition-all duration-300 relative group">
+            <Link href="/pricing" className="px-4 py-2 text-gray-700 hover:text-primary-600 hover:bg-primary-50 rounded-lg transition-all duration-200 font-medium">
               Pricing
-              <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-primary-600 group-hover:w-full transition-all duration-300"></span>
             </Link>
-            <Link href="/about" className="text-gray-700 hover:text-primary-600 transition-all duration-300 relative group">
+            <Link href="/about" className="px-4 py-2 text-gray-700 hover:text-primary-600 hover:bg-primary-50 rounded-lg transition-all duration-200 font-medium">
               About
-              <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-primary-600 group-hover:w-full transition-all duration-300"></span>
             </Link>
-            <Link href="/contact" className="text-gray-700 hover:text-primary-600 transition-all duration-300 relative group">
+            <Link href="/contact" className="px-4 py-2 text-gray-700 hover:text-primary-600 hover:bg-primary-50 rounded-lg transition-all duration-200 font-medium">
               Contact
-              <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-primary-600 group-hover:w-full transition-all duration-300"></span>
             </Link>
             {isLoggedIn ? (
-              <Link href="/dashboard" className="flex items-center space-x-2 text-gray-700 hover:text-primary-600 transition-all duration-300 px-4 py-2 rounded-lg hover:bg-primary-50">
+              <Link href="/dashboard" className="ml-4 flex items-center space-x-2 text-gray-700 hover:text-primary-600 transition-all duration-200 px-5 py-2 rounded-lg hover:bg-primary-50 font-medium">
                 <FiUser />
                 <span>Dashboard</span>
               </Link>
             ) : (
-              <Link href="/login" className="flex items-center space-x-2 bg-gradient-to-r from-primary-600 to-primary-700 text-white px-4 py-2 rounded-lg hover:from-primary-700 hover:to-primary-800 transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105">
+              <Link href="/login" className="ml-4 flex items-center space-x-2 bg-primary-600 text-white px-6 py-2.5 rounded-lg hover:bg-primary-700 transition-all duration-200 shadow-md hover:shadow-lg font-semibold">
                 <FiLogIn />
                 <span>Login</span>
               </Link>

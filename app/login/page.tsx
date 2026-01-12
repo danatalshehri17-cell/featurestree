@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import Link from 'next/link'
 import { FiMail, FiPhone, FiLock, FiEye, FiEyeOff } from 'react-icons/fi'
+import { motion } from 'framer-motion'
 
 export default function Login() {
   const [loginMethod, setLoginMethod] = useState<'email' | 'phone'>('email')
@@ -21,19 +22,40 @@ export default function Login() {
 
   return (
     <div className="min-h-screen bg-gray-50 flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-md w-full space-y-8">
+      <motion.div 
+        initial={{ opacity: 0, y: 30 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6 }}
+        className="max-w-md w-full space-y-8"
+      >
         <div>
-          <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
+          <motion.h2 
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.5, delay: 0.1 }}
+            className="mt-6 text-center text-3xl font-extrabold text-gray-900"
+          >
             Sign in to your account
-          </h2>
-          <p className="mt-2 text-center text-sm text-gray-600">
+          </motion.h2>
+          <motion.p 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+            className="mt-2 text-center text-sm text-gray-600"
+          >
             Or{' '}
             <Link href="/signup" className="font-medium text-primary-600 hover:text-primary-500">
               create a new account
             </Link>
-          </p>
+          </motion.p>
         </div>
-        <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
+        <motion.form 
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.3 }}
+          className="mt-8 space-y-6" 
+          onSubmit={handleSubmit}
+        >
           <div className="rounded-md shadow-sm -space-y-px">
             {/* Login Method Toggle */}
             <div className="flex mb-4 bg-white rounded-lg p-1">
@@ -153,8 +175,8 @@ export default function Login() {
               Sign in
             </button>
           </div>
-        </form>
-      </div>
+        </motion.form>
+      </motion.div>
     </div>
   )
 }

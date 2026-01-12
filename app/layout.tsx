@@ -1,13 +1,15 @@
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import './globals.css'
-import Navbar from '@/components/Navbar'
-import Footer from '@/components/Footer'
+import dynamic from 'next/dynamic'
+
+const Navbar = dynamic(() => import('@/components/Navbar'), { ssr: true })
+const Footer = dynamic(() => import('@/components/Footer'), { ssr: true })
 
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  title: 'STEP Exam Platform - Prepare for Success',
+  title: 'Features Tree - STEP Exam Preparation Platform',
   description: 'Comprehensive STEP exam preparation platform with practice tests, quizzes, and personalized feedback',
 }
 

@@ -2,6 +2,7 @@
 
 import Link from 'next/link'
 import { FiCheck, FiX } from 'react-icons/fi'
+import { motion } from 'framer-motion'
 
 const plans = [
   {
@@ -69,20 +70,29 @@ export default function Pricing() {
     <div className="min-h-screen bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
-        <div className="text-center mb-12">
+        <motion.div 
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          className="text-center mb-12"
+        >
           <h1 className="text-4xl font-bold text-gray-900 mb-4">Choose Your Plan</h1>
           <p className="text-xl text-gray-600 max-w-2xl mx-auto">
             Select the perfect plan for your STEP exam preparation journey
           </p>
-        </div>
+        </motion.div>
 
         {/* Pricing Cards */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
-          {plans.map((plan) => (
-            <div
+          {plans.map((plan, index) => (
+            <motion.div
               key={plan.id}
-              className={`bg-white rounded-lg shadow-lg p-8 relative ${
-                plan.popular ? 'border-2 border-primary-600 transform scale-105' : ''
+              initial={{ opacity: 0, y: 50 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: index * 0.1 }}
+              whileHover={{ y: -5, scale: 1.02 }}
+              className={`bg-white rounded-lg shadow-lg p-8 relative transition-all ${
+                plan.popular ? 'border-2 border-primary-600' : ''
               }`}
             >
               {plan.popular && (
@@ -124,7 +134,7 @@ export default function Pricing() {
               >
                 {plan.buttonText}
               </Link>
-            </div>
+            </motion.div>
           ))}
         </div>
 

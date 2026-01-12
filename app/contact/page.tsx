@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import { FiMail, FiPhone, FiMapPin, FiSend, FiHelpCircle, FiMessageCircle, FiBook } from 'react-icons/fi'
+import { motion } from 'framer-motion'
 
 const faqs = [
   {
@@ -69,48 +70,55 @@ export default function Contact() {
     <div className="min-h-screen bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
-        <div className="text-center mb-12">
+        <motion.div 
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          className="text-center mb-12"
+        >
           <h1 className="text-4xl font-bold text-gray-900 mb-4">Contact Us</h1>
           <p className="text-xl text-gray-600">
             We're here to help! Get in touch with our support team
           </p>
-        </div>
+        </motion.div>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-12">
           {/* Contact Info Cards */}
-          <div className="bg-white rounded-lg shadow-md p-6">
-            <div className="bg-primary-100 w-12 h-12 rounded-full flex items-center justify-center mb-4">
-              <FiMail className="w-6 h-6 text-primary-600" />
-            </div>
-            <h3 className="text-lg font-semibold text-gray-900 mb-2">Email Support</h3>
-            <p className="text-gray-600 mb-2">Send us an email anytime</p>
-            <a href="mailto:support@stepexam.com" className="text-primary-600 hover:text-primary-700 font-medium">
-              support@stepexam.com
-            </a>
-          </div>
-
-          <div className="bg-white rounded-lg shadow-md p-6">
-            <div className="bg-green-100 w-12 h-12 rounded-full flex items-center justify-center mb-4">
-              <FiPhone className="w-6 h-6 text-green-600" />
-            </div>
-            <h3 className="text-lg font-semibold text-gray-900 mb-2">Phone Support</h3>
-            <p className="text-gray-600 mb-2">Call us during business hours</p>
-            <a href="tel:+1234567890" className="text-primary-600 hover:text-primary-700 font-medium">
-              +1 (234) 567-890
-            </a>
-          </div>
-
-          <div className="bg-white rounded-lg shadow-md p-6">
-            <div className="bg-purple-100 w-12 h-12 rounded-full flex items-center justify-center mb-4">
-              <FiMapPin className="w-6 h-6 text-purple-600" />
-            </div>
-            <h3 className="text-lg font-semibold text-gray-900 mb-2">Office Address</h3>
-            <p className="text-gray-600">
-              123 Education Street<br />
-              Learning City, LC 12345<br />
-              United States
-            </p>
-          </div>
+          {[
+            { icon: FiMail, title: 'Email Support', desc: 'Send us an email anytime', info: 'support@stepexam.com', link: 'mailto:support@stepexam.com', color: 'primary' },
+            { icon: FiPhone, title: 'Phone Support', desc: 'Call us during business hours', info: '+1 (234) 567-890', link: 'tel:+1234567890', color: 'green' },
+            { icon: FiMapPin, title: 'Office Address', desc: 'Visit us at our headquarters', info: '123 Education Street, Learning City, LC 12345', link: '#', color: 'purple' }
+          ].map((contact, index) => {
+            const colorClasses = {
+              primary: { bg: 'bg-primary-100', text: 'text-primary-600' },
+              green: { bg: 'bg-green-100', text: 'text-green-600' },
+              purple: { bg: 'bg-purple-100', text: 'text-purple-600' }
+            }
+            const colors = colorClasses[contact.color as keyof typeof colorClasses]
+            return (
+            <motion.div
+              key={index}
+              initial={{ opacity: 0, y: 50 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: index * 0.1 }}
+              whileHover={{ y: -5, scale: 1.02 }}
+              className="bg-white rounded-lg shadow-md p-6"
+            >
+              <div className={`${colors.bg} w-12 h-12 rounded-full flex items-center justify-center mb-4`}>
+                <contact.icon className={`w-6 h-6 ${colors.text}`} />
+              </div>
+              <h3 className="text-lg font-semibold text-gray-900 mb-2">{contact.title}</h3>
+              <p className="text-gray-600 mb-2">{contact.desc}</p>
+              {contact.link.startsWith('mailto:') || contact.link.startsWith('tel:') ? (
+                <a href={contact.link} className="text-primary-600 hover:text-primary-700 font-medium">
+                  {contact.info}
+                </a>
+              ) : (
+                <p className="text-primary-600 font-medium">{contact.info}</p>
+              )}
+            </motion.div>
+            )
+          })}
         </div>
 
         {/* Contact Form */}

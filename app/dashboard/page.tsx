@@ -3,6 +3,7 @@
 import Link from 'next/link'
 import { FiBarChart2, FiClock, FiBook, FiTarget, FiTrendingUp, FiPlay } from 'react-icons/fi'
 import { LineChart, Line, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts'
+import { motion } from 'framer-motion'
 
 const performanceData = [
   { name: 'Week 1', score: 65 },
@@ -37,66 +38,43 @@ export default function Dashboard() {
     <div className="min-h-screen bg-gray-50 py-8 px-4 sm:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
-        <div className="mb-8">
+        <motion.div 
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          className="mb-8"
+        >
           <h1 className="text-3xl font-bold text-gray-900 mb-2">Welcome back!</h1>
           <p className="text-gray-600">Here's your performance overview</p>
-        </div>
+        </motion.div>
 
         {/* Stats Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-          <div className="bg-white rounded-lg shadow-md p-6">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-sm text-gray-600 mb-1">Average Score</p>
-                <p className="text-3xl font-bold text-gray-900">78%</p>
+          {[
+            { label: 'Average Score', value: '77%', icon: FiBarChart2, color: 'primary' },
+            { label: 'Tests Completed', value: '24', icon: FiBook, color: 'green' },
+            { label: 'Study Streak', value: '12 days', icon: FiTarget, color: 'yellow' },
+            { label: 'Time Spent', value: '45h', icon: FiClock, color: 'purple' }
+          ].map((stat, index) => (
+            <motion.div
+              key={index}
+              initial={{ opacity: 0, y: 50 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: index * 0.1 }}
+              whileHover={{ y: -5, scale: 1.02 }}
+              className="bg-white rounded-lg shadow-md p-6"
+            >
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className="text-sm text-gray-600 mb-1">{stat.label}</p>
+                  <p className="text-2xl font-bold text-gray-900">{stat.value}</p>
+                </div>
+                <div className={`${stat.color === 'primary' ? 'bg-primary-100' : stat.color === 'green' ? 'bg-green-100' : stat.color === 'yellow' ? 'bg-yellow-100' : 'bg-purple-100'} w-12 h-12 rounded-full flex items-center justify-center`}>
+                  <stat.icon className={`w-6 h-6 ${stat.color === 'primary' ? 'text-primary-600' : stat.color === 'green' ? 'text-green-600' : stat.color === 'yellow' ? 'text-yellow-600' : 'text-purple-600'}`} />
+                </div>
               </div>
-              <div className="bg-primary-100 p-3 rounded-full">
-                <FiBarChart2 className="w-6 h-6 text-primary-600" />
-              </div>
-            </div>
-            <p className="text-sm text-green-600 mt-2 flex items-center">
-              <FiTrendingUp className="mr-1" /> +5% from last week
-            </p>
-          </div>
-
-          <div className="bg-white rounded-lg shadow-md p-6">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-sm text-gray-600 mb-1">Tests Completed</p>
-                <p className="text-3xl font-bold text-gray-900">24</p>
-              </div>
-              <div className="bg-green-100 p-3 rounded-full">
-                <FiBook className="w-6 h-6 text-green-600" />
-              </div>
-            </div>
-            <p className="text-sm text-gray-600 mt-2">This month</p>
-          </div>
-
-          <div className="bg-white rounded-lg shadow-md p-6">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-sm text-gray-600 mb-1">Study Streak</p>
-                <p className="text-3xl font-bold text-gray-900">12</p>
-              </div>
-              <div className="bg-yellow-100 p-3 rounded-full">
-                <FiTarget className="w-6 h-6 text-yellow-600" />
-              </div>
-            </div>
-            <p className="text-sm text-gray-600 mt-2">Days in a row</p>
-          </div>
-
-          <div className="bg-white rounded-lg shadow-md p-6">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-sm text-gray-600 mb-1">Time Spent</p>
-                <p className="text-3xl font-bold text-gray-900">42h</p>
-              </div>
-              <div className="bg-purple-100 p-3 rounded-full">
-                <FiClock className="w-6 h-6 text-purple-600" />
-              </div>
-            </div>
-            <p className="text-sm text-gray-600 mt-2">This month</p>
-          </div>
+            </motion.div>
+          ))}
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
